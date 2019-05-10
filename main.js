@@ -29,7 +29,7 @@ function Drag(event){
     angle = 0.2*(event.clientX - originX);
     event.currentTarget.style.transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
     event.currentTarget.style.transform += 'rotate(' + angle + 'deg)';
-    if (offsetX > 150 || offsetX < -150) {
+    if (event.clientX - originX > 150 || event.clientX - originX < -150) {
         document.body.style.backgroundColor = '#97b7b7';
     } 
     else {
@@ -38,12 +38,12 @@ function Drag(event){
 }
 
 function endDrag(event){
-    document.body.style.backgroundColor = '#d0e6df';
     drag = false;
-    if (offsetX > 150 || offsetX < -150) {
+    document.body.style.backgroundColor = '#d0e6df';
+    if (event.clientX - originX > 150 || event.clientX - originX < -150) {
         let correctNum = document.querySelector('.correct');
         let wrongNum = document.querySelector('.incorrect');
-        if(offsetX > 150){ //right
+        if(event.clientX - originX > 150){ //right
             correctCnt += 1;
             correctNum.textContent = correctCnt;
         }
@@ -65,6 +65,7 @@ function endDrag(event){
     } 
     else {
         event.currentTarget.style.transform = 'translate(0px,0px)';
-        event.currentTarget.style.transform = 'rotate(0 deg)';
+        event.currentTarget.style.transform += 'rotate(0 deg)';
     }
+    drag = false;
 }
